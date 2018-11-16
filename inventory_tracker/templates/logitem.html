@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Meta, title, CSS, favicons, etc. -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Inventory Tracker</title>
+
+	<!-- Bootstrap -->
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom Theme Style -->
+	<link href="{{url_for('.static', filename='custom.min.css')}}" rel="stylesheet">
+	<link href="{{url_for('.static', filename='signature-pad.css')}}" rel="stylesheet">
+	<link href="{{url_for('.static', filename='site.css')}}" rel="stylesheet">
+
+
+</head>
+
+<body>
+	<div class="container body">
+		<div class="main_container">
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>Inventory Tracker</h3>
+						</div>
+						<div class="title_right">
+							<div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+							</div>
+						</div>
+					</div>
+
+					<!-- Item Sign Out -->
+					<div class="clearfix"></div>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Item Sign Out <small>Enter the details</small></h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="form1" data-parsley-validate class="form-horizontal form-label-left" action="/submit" method="POST">
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name1">Item Type <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" id="name1" name ="name" value ="{{name}}" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="subtype1">Item Name/SubType <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" id="subtype1" name="subtype" value="{{subtype}}" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="description1" class="control-label col-md-3 col-sm-3 col-xs-12">Short Description</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="description1" value="{{description}}" class="form-control col-md-7 col-xs-12" type="text" name="description">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="deadline1" class="control-label col-md-3 col-sm-3 col-xs-12">Deadline <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="deadline1" name="deadline" value="{{deadline}}" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="empName1" class="control-label col-md-3 col-sm-3 col-xs-12">Employee Name <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="empName1" name="empName" value="{{empName}}" class="form-control col-md-7 col-xs-12" required="required" type="text">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="empEmail1" class="control-label col-md-3 col-sm-3 col-xs-12">Employee Email <span class="required">*</span></label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input id="empEmail1" name="empEmail" value="{{empEmail}}" class="form-control col-md-7 col-xs-12" required="required" type="text">
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+												<button class="btn btn-primary" type="reset">Reset</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Signature Pad -->
+					<div class="clearfix"></div>
+					<div class="row marg">
+					<div class="col-md-12">
+							<div id="signature-pad" class="m-signature-pad">
+								<div class="m-signature-pad--body">
+									<canvas id="canvas"></canvas>
+								</div>
+								<div class="m-signature-pad--footer">
+									<div class="description">Sign above</div>
+									<button type="button" class="button clear" data-action="clear">Clear</button>
+									<button type="button" class="button save" data-action="save">Save</button>
+								</div>
+							</div>
+					</div>
+					</div>
+
+					<!-- IT Verification -->
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>IT Verification <small>Enter username and password</small></h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+									<br />
+									<form id="form2" data-parsley-validate class="form-horizontal form-label-left" action="/submit" method="POST">
+										<div class="form-group" id="flashmsg">
+											{% with messages = get_flashed_messages() %}
+											{% if messages %}
+											{% for message in messages %}
+											<div class="alert alert-warning alert-dismissable" role="alert">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												{{message}}
+											</div>
+											{% endfor %}
+											{% endif %}
+											{% endwith %}
+											<script>  window.setTimeout(function() { $("#flashmsg").fadeTo(500, 0).slideUp(500, function() { $(this).remove(); }); }, 5000);  </script>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">Username <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="text" id="username" name ="username" required="required" class="form-control col-md-7 col-xs-12">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Password <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 col-xs-12">
+												<input type="password" id="password" name="password" required="required" class="form-control col-md-7 col-xs-12">
+												<input type="hidden" id="signature" name="signature" value="000">
+												<input type="hidden" id="name" name="name" value="000">
+												<input type="hidden" id="subtype" name="subtype" value="000">
+												<input type="hidden" id="description" name="description" value="000">
+												<input type="hidden" id="deadline" name="deadline" value="000">
+												<input type="hidden" id="empName" name="empName" value="000">
+												<input type="hidden" id="empEmail" name="empEmail" value="000">
+											</div>
+										</div>
+										<div class="ln_solid"></div>
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+												<button class="btn btn-primary" type="reset">Reset</button>
+												<button type="button" id ="subBut" class="btn btn-success">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- Signature Pad Scripts -->
+<script src="{{url_for('.static', filename='signature_pad.js')}}"></script>
+<script src="{{url_for('.static', filename='app.js')}}"></script>
+
+<script type="text/javascript">
+
+ document.getElementById('subBut').addEventListener('click', function() {
+ 				var canvas = document.getElementById('canvas');
+				document.getElementById("name").value = document.getElementById("name1").value
+				document.getElementById("subtype").value = document.getElementById("subtype1").value
+				document.getElementById("deadline").value = document.getElementById("deadline1").value
+				document.getElementById("description").value = document.getElementById("description1").value
+				document.getElementById("deadline").value = document.getElementById("deadline1").value
+				document.getElementById("empName").value = document.getElementById("empName1").value
+				document.getElementById("empEmail").value = document.getElementById("empEmail1").value
+				var url = canvas.toDataURL();
+				document.getElementById("signature").value = url
+				document.getElementById("form2").submit();
+					});
+</script>
+</body>
+</html>

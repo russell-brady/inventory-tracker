@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{url_for('.static', filename='custom.min.css')}}" rel="stylesheet">
+    <link href="{{url_for('.static', filename='custom.css')}}" rel="stylesheet">
+
+    <title>Inventory Tracker</title>
+</head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form action="/validateadmin" method="POST">
+              <h1>Inventory Tracker</h1>
+               <div id="flashmsg">
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                  {% for message in messages %}
+                  <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{message}}
+                  </div>
+                    {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+              </div>
+              <hr class="my-4">
+              <p>From this page an Employee can borrow an item from the stock room with Admin verification. The admin can login to view all the items which has been loaned out to Employees.
+                          An employee can log in to view all items they have loaned out from the stock room. </p>
+              <hr class="my-4">
+              <div>
+                    <a class="btn btn-success" href="/logitem" role="button">Borrow Item</a>
+                    <a class="btn btn-success" href="/adminlogin" role="button">Admin Login</a>
+                    <a class="btn btn-success" href="/employeelogin" role="button">Employee Login</a>
+              </div>
+
+
+
+
+            </form>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
