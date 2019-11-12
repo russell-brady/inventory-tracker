@@ -1,4 +1,4 @@
-#Inventory Tracker
+# Inventory Tracker
 
 This is a small personal project I worked on to keep track of items in an inventory. 
 
